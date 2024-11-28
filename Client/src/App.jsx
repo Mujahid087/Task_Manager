@@ -19,6 +19,7 @@ function Layout() {
   return user ? (
     <div className='w-full h-screen flex flex-xol md:flex-row'>
       <div className='w-1/5 h-screen bg-white sticky top-0 hidden md'>
+      <div className="w"></div>
 
       </div>
          
