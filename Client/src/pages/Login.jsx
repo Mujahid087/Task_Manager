@@ -2,14 +2,17 @@ import React, { useEffect } from 'react'
 import { useForm } from "react-hook-form"
 import { useNavigate } from 'react-router-dom';
 import Textbox from '../Components/Textbox';
+import Button from '../Components/Button';
+import { useSelector } from 'react-redux';
 
 const Login = () => {
-    const user = "";
+    const {user} = useSelector((state)=>state.auth);
     const { register, handleSubmit, formState: { errors } } = useForm()
     const navigate = useNavigate()
     const submitHnadler = async (data) => {
         console.log("submit")
     }
+    
     useEffect(() => {
         user && navigate("/dashboard")
     }, [user])
@@ -42,7 +45,7 @@ const Login = () => {
                             keep all your credential safe
                         </p>
                     </div>
-                    <div className='flex felx-col gap-y-5 '>
+                    <div className='flex flex-col gap-y-5 '>
                         <Textbox
                             placeholder="email@example.com"
                             type="email"
@@ -65,10 +68,15 @@ const Login = () => {
                             })}
                             error={errors.password?errors.password.message:""}
                         />
-                        <span className='text-sm text-gray-500 h'>
-                            Forget Password
+                        <span className='text-sm text-gray-500 hover:text-blue-600 hover:underline cursor-pointer'>
+                            Forget Password?
                         </span>
-
+                        <Button
+                        type='submit'
+                        label='submit'
+                        className='w-full h-10 bg-blue-700 text-white rounded-full '
+                        
+                        />
                     </div>
                 </form>
             </div>
