@@ -6,7 +6,7 @@ import Task from './pages/Task'
 import Users from './pages/Users'
 import Trash from './pages/Trash'
 import TaskDetails from './pages/TaskDetails'
-import Toaster from 'sonner'
+import {Toaster} from 'sonner'
 
 
 function Layout() {
@@ -18,12 +18,24 @@ function Layout() {
 
   return user ? (
     <div className='w-full h-screen flex flex-xol md:flex-row'>
-      <div className='w-1/5 h-screen bg-white sticky top-0 hidden md'>
-      <div className="w"></div>
+      <div className='w-1/5 h-screen bg-white sticky top-0 hidden md:block'>
+        {/* {sidebar */}
+      </div>
+
+      {/* {Mobilesidebar} */}
+      <div className='flex-1 overflow-y-auto '>
+        {/* <Navbar/> */}
+
+        <div className="p-4 2xl:px-10 ">
+          <Outlet />
+        </div>
 
       </div>
-         
+      
+
     </div>
+
+    
   ) : (
     <Navigate to="/login" state={{ from: location }} replace />
   )
