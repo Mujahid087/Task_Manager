@@ -19,7 +19,7 @@ const authSlice=createSlice({
             localStorage.removeItem("userInfo")
         },
         setOpensidebar:(state,action)=>{
-            state.isSidebaropen=action.payload
+            state.isSidebarOpen=action.payload
         }
     }
 })
