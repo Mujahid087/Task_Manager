@@ -16,7 +16,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { tasks } from "../assets/data";
 import Tabs from "../Components/Tabs";
-import { PRIOTITYSTYELS, TASK_TYPE, getInitials } from "../utils";
+import getInitials,{ PRIOTITYSTYELS, TASK_TYPE } from "../utils";
 import Loading from "../Components/Loader";
 import Button from "../Components/Button";
 

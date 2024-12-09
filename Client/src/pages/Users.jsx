@@ -3,7 +3,7 @@ import Title from "../components/Title";
 import Button from "../Components/Button";
 import { IoMdAdd } from "react-icons/io";
 import { summary } from "../assets/data";
-import { getInitials } from "../utils";
+import  getInitials  from "../utils";
 import clsx from "clsx";
 import ConfirmatioDialog, { UserAction } from "../Components/Dialogs";
 import AddUser from "../Components/AddUser";
