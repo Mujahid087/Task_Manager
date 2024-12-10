@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import ModalWrapper from "../ModalWrapper";
 import { Dialog } from "@headlessui/react";
-import Textbox from "../Textbox";
+import Textbox from "../../components/Textbox";
 import { useForm } from "react-hook-form";
 import UserList from "./UserList";
 import SelectList from "../SelectList";
 import { BiImages } from "react-icons/bi";
-import Button from "../Button";
+import Button from "../../components/Button";
 
 const LISTS = ["TODO", "IN PROGRESS", "COMPLETED"];
 const PRIORIRY = ["HIGH", "MEDIUM", "NORMAL", "LOW"];

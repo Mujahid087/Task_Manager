@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Title from "../components/Title";
-import Button from "../Components/Button";
+import Button from "../components/Button";
 import { IoMdAdd } from "react-icons/io";
 import { summary } from "../assets/data";
 import  getInitials  from "../utils";
 import clsx from "clsx";
-import ConfirmatioDialog, { UserAction } from "../Components/Dialogs";
-import AddUser from "../Components/AddUser";
+import ConfirmatioDialog, { UserAction } from "../components/Dialogs";
+import AddUser from "../components/AddUser";
 
 const Users = () => {
   const [openDialog, setOpenDialog] = useState(false);

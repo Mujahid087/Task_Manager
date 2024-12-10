@@ -82,4 +82,3 @@ Sidebar.propTypes = {
     closeSidebar: PropTypes.func.isRequired
 };
 export default Sidebar;
-
