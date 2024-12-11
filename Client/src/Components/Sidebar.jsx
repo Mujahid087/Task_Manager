@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import {
   MdDashboard,
@@ -11,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { setOpenSidebar } from "../redux/slices/authSlice";
 import clsx from "clsx";
+// import PropTypes from 'prop-types'
 
 const linkData = [
   {
@@ -103,5 +105,6 @@ const Sidebar = () => {
     </div>
   );
 };
+
 
 export default Sidebar;

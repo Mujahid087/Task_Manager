@@ -1,6 +1,7 @@
 import { Popover, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 import { getInitials } from "../utils";
+import PropTypes from 'prop-types';
 
 const UserInfo = ({ user }) => {
   return (
@@ -44,5 +45,11 @@ const UserInfo = ({ user }) => {
     </div>
   );
 };
-
+UserInfo.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,  // User's name, required
+    email: PropTypes.string,            // User's email, optional
+    title: PropTypes.string,            // User's title, optional
+  }).isRequired, // `user` object is required
+};
 export default UserInfo;

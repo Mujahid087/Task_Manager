@@ -1,6 +1,8 @@
 import clsx from "clsx";
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import { IoMdAdd } from "react-icons/io";
+import PropTypes from "prop-types";
 
 const TaskTitle = ({ label, className }) => {
   return (
@@ -15,6 +17,11 @@ const TaskTitle = ({ label, className }) => {
       </button>
     </div>
   );
+};
+
+TaskTitle.propTypes = {
+  label: PropTypes.string.isRequired, // Label is a required string
+  className: PropTypes.string, // className is an optional string
 };
 
 export default TaskTitle;

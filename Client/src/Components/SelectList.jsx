@@ -1,4 +1,5 @@
 import { Listbox, Transition } from "@headlessui/react";
+import PropTypes from 'prop-types'
 import React, { Fragment } from "react";
 import { BsChevronExpand } from "react-icons/bs";
 import { MdCheck } from "react-icons/md";
@@ -60,6 +61,12 @@ const SelectList = ({ lists, selected, setSelected, label }) => {
       </Listbox>
     </div>
   );
+};
+SelectList.propTypes = {
+  lists: PropTypes.arrayOf(PropTypes.string).isRequired, // Array of strings, required
+  selected: PropTypes.string.isRequired,               // Selected string, required
+  setSelected: PropTypes.func.isRequired,              // Function to set the selected value, required
+  label: PropTypes.string,                             // Optional string for label
 };
 
 export default SelectList;

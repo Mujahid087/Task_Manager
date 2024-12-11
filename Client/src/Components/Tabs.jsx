@@ -1,4 +1,5 @@
 import { Tab } from "@headlessui/react";
+import PropTypes from 'prop-types';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -33,3 +34,15 @@ export default function Tabs({ tabs, setSelected, children }) {
     </div>
   );
 }
+
+
+Tabs.propTypes = {
+  tabs: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired, // Title of the tab, required
+      icon: PropTypes.node,              // Icon component or element, optional
+    })
+  ).isRequired, // Array of tab objects, required
+  setSelected: PropTypes.func.isRequired, // Function to set the selected tab, required
+  children: PropTypes.node.isRequired,    // Children elements to be rendered in Tab.Panels, required
+};
