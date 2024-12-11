@@ -10,5 +10,3 @@ const Title = ({ title, className }) => {
 };
 
 export default Title;
-
-

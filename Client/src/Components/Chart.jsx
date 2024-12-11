@@ -9,9 +9,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import {chartData} from '../assets/data'
+import { chartData } from "../assets/data";
 
-const Chart = () => {
+export const Chart = () => {
   return (
     <ResponsiveContainer width={"100%"} height={300}>
       <BarChart width={150} height={40} data={chartData}>
@@ -25,4 +25,3 @@ const Chart = () => {
     </ResponsiveContainer>
   );
 };
-export default Chart;
