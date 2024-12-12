@@ -1,4 +1,4 @@
-import { Mongoose, Schema } from "mongoose"
+import mongoose, { Mongoose, Schema } from "mongoose"
 const taskSchema = new Schema({
     title: { type: String, required: true },
     date: { type: Date, default: new Date() },
@@ -33,6 +33,29 @@ const taskSchema = new Schema({
         }
 
 
-    }
+    },
+    subTasks:[
+        {
+            title:String,
+            data:Date,
+            tag:String
+        },
 
-})
+
+    ],
+    assets:[String],
+    team:[
+        {
+            type:Schema.Types.ObjectId,ref:"User"
+        }
+    ],
+    isTrashed:{
+        type:Boolean,default:false
+    },
+    
+},
+{timestamps:true},
+)
+
+const Task=mongoose.model('Task',taskSchema)
+export default Task

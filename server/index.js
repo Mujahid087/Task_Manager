@@ -33,7 +33,7 @@ app.use(routeNotFound)
 app.use(erroHandler)
 
 
-app.listen(PORT,()=>console.log(`server listenong on ${PORT}`))
+app.listen(PORT,()=>console.log(`server listening on ${PORT}`))
 
 
 
