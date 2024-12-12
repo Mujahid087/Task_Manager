@@ -4,7 +4,7 @@ const routeNotFound=(req,res,next)=>{
     next(error)
 }
 
-const erroHandler=(err,req,res,next)=>{
+const errorHandler=(err,req,res,next)=>{
     let statusCode=res.statusCode ===200 ? 500 : res.statusCode
     let message=err.message
 
@@ -22,4 +22,4 @@ const erroHandler=(err,req,res,next)=>{
 
 }
 
-export {routeNotFound,erroHandler}
+export {routeNotFound,errorHandler}
