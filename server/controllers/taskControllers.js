@@ -44,6 +44,92 @@ export const createTask = async (req, res) => {
 
 }
 
+export const duplicateTask= async (req,res) => {
+    try{
+        const {id}=req.params
+
+
+
+
+        const task = await Task.findById(id)
+
+
+        const newTask=await Task.create({
+            ...task,
+            title:task.title+ "-Duplicate"
+        })
+
+        newTask.team=task.team
+        newTask.subTasks=task.subTasks
+        newTask.assets=task.assets
+        newTask.priority=task.priority
+        newTask.stage=task.stage
+
+
+        await newTask.save()
+        res.status(200).json({
+            status:true,
+            message:"Task duplicated successfully"
+        })
+
+
+    }
+    catch(error){
+        return res.status(400).json({
+            status:false,
+            message:error.message
+        })
+    }
+}
+
+export const postTaskActivity  = async (req,res) => {
+    try{
+        const {id}=req.params
+        const {userId}=req.user
+        const {type,activity}=req.body
+
+        const task=await Task.findById(id)
+        
+        const data={
+            type,
+            activity,
+            by:userId,
+        }
+        task.activities.push(data)
+        await task.save()
+
+        res.status(200).json({
+            status:true,
+            message:"Activity posted successfully"
+        })
+
+    }
+    catch(error){
+        return res.status(400).json({
+            status:false,
+            message:error.message
+        })
+    }
+}
+
+export const dashboardStatistics= async (req,res) => {
+    try{
+        const {userId , isAdmin}=req.user
+        const allTasks=isAdmin? await Task.find({
+            isTrashed:false
+
+        }) : ""
+
+    }
+    catch(error){
+        return res.status(400).json({
+            status:false,
+            message:error.message
+        })
+    }
+}
+
+
 // export const = async (req,res) => {
 //     try{
 
