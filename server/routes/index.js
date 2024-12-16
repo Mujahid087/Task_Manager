@@ -1,5 +1,5 @@
 import express from "express"
-import userRoutes from './UserRoutes.js'
+import userRoutes from "./userRoutes.js"
 import taskRoutes from './taskRoutes.js'
 
 const router=express.Router()
