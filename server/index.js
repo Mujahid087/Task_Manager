@@ -28,6 +28,10 @@ app.use(cookieParser())
 app.use(morgan("dev"))
 app.use("/api",routes)
 
+app.get('/test', (req, res) => {
+    res.json({ message: 'Server is working' })
+})
+
 app.use(routeNotFound)
 app.use(errorHandler)
 
