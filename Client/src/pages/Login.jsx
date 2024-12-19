@@ -3,7 +3,11 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Textbox from "../components/Textbox";
 import Button from "../components/Button";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
+import { useLoginMutation } from "../redux/slices/api/authApiSlice";
 
 const Login = () => {
   const { user } = useSelector((state) => state.auth);
@@ -14,9 +18,18 @@ const Login = () => {
   } = useForm();
 
   const navigate = useNavigate();
+  const [login,{isLoading}]=useLoginMutation()
 
   const submitHandler = async (data) => {
-    console.log("submit");
+    try {
+      const result=await login(data).unwrap()
+      console.log(result)
+      toast.success('Login successful!');
+    }catch (error){
+      console.log(error)
+      toast.error(error?.data?.message || error.message)
+
+    }
   };
 
   useEffect(() => {
@@ -25,6 +38,7 @@ const Login = () => {
 
   return (
     <div className='w-full min-h-screen flex items-center justify-center flex-col lg:flex-row bg-[#f3f4f6]'>
+        <ToastContainer />
       <div className='w-full md:w-auto flex gap-0 md:gap-40 flex-col md:flex-row items-center justify-center'>
         {/* left side */}
         <div className='h-full w-full lg:w-2/3 flex flex-col items-center justify-center'>

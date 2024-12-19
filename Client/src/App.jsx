@@ -108,7 +108,7 @@ function App() {
           <Route path='/task/:id' element={<TaskDetails />} />
         </Route>
 
-        <Route path='/log-in' element={<Login />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
 
       <Toaster richColors />
