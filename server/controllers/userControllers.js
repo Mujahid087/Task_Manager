@@ -1,5 +1,5 @@
 import User from "../models/user.js";
-import createJWT from '../utils/index.js'
+import {createJWT} from '../utils/index.js'
 import Notice from "../models/notification.js";
 
 
@@ -60,7 +60,7 @@ export const loginUser = async (req, res) => {
                 })
         }
 
-        if (!user.isActive) {
+        if (!user?.isActive) {
             return res.status(401).json({
                 status: false,
                 message: "user account has been deactivated,contact the administrator"
@@ -337,3 +337,4 @@ export const deleteUserProfile = async (req, res) => {
 
     }
 }   
+
