@@ -8,6 +8,7 @@ import Loading from "./Loader";
 import Button from "./Button";
 import { useRegisterMutation } from "../redux/slices/api/authApiSlice";
 import { toast } from "react-toastify";
+import { useUpdateUserMutation } from "../redux/slices/api/userApiSlice";
 
 const AddUser = ({ open, setOpen, userData }) => {
   let defaultValues = userData ?? {};
@@ -22,10 +23,19 @@ const AddUser = ({ open, setOpen, userData }) => {
   } = useForm({ defaultValues });
 
   const [addNewUser ,{isLoading}]=useRegisterMutation()
+  const [updateUser,{isLoading:isUpdating}]=useUpdateUserMutation()
+
 
   const handleOnSubmit = async (data) => {
     try {
       if(userData){
+        const result=await updateUser(data).unwrap()
+
+        toast.success(result?.message)
+
+        if(userData?._id===user_id){
+          dispatch
+        }
 
       }else{
         const result=await addNewUser({...data,password:data.email}).unwrap()
