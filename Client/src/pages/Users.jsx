@@ -9,7 +9,7 @@ import ConfirmatioDialog, { UserAction } from "../components/Dialogs";
 import AddUser from "../components/AddUser";
 import PropTypes from "prop-types";
 import { useDeleteUserMutation, useGetTeamListQuery, useUserActionMutation } from "../redux/slices/api/userApiSlice";
-import { toast } from "react-toastify";
+import { toast , ToastContainer } from "react-toastify";
 // import refetch from 'react'
 
 const Users = () => {
@@ -37,16 +37,21 @@ const Users = () => {
         setOpenAction(false)
       },500)
     }catch(error){
-      console.log(error)
-      toast.error(error?.data?.message || error.error)
-
+      // console.log(error)
+      // toast.error(error?.data?.message || error.error)
+      console.log(error);
+      const errorMessage = error?.data?.message || error?.error || "Something went wrong";
+      toast.error(errorMessage);
     }
   };
+ 
+
+  
   const deleteHandler = async () => {
     try{
       const result=await deleteUser(selected)
       refetch()
-      toast.success(result?.data?.message);
+      toast.success("Deleted successfully");
       setSelected(null);
       setTimeout(()=>{
         setOpenDialog(false)
@@ -70,7 +75,7 @@ const Users = () => {
 
   const userStatusClick=(el)=>{
     setSelected(el)
-    setOpen(true)
+    setOpenAction(true)
   }
 
   const TableHeader = () => (
@@ -143,7 +148,9 @@ const Users = () => {
   };
 
   return (
+
     <>
+    <ToastContainer/>
       <div className='w-full md:px-1 px-0 mb-6'>
         <div className='flex items-center justify-between mb-8'>
           <Title title='  Team Members' />

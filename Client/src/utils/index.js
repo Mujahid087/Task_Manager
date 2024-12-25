@@ -24,15 +24,35 @@ export function dateFormatter(dateString) {
   return formattedDate;
 }
 
+// export function getInitials(fullName) {
+//   const names = fullName.split(" ");
+
+//   // const initials = names.slice(0, 2).map((name) => name[0].toUpperCase());
+//   const initials = names.slice(0, 2).map((name) => name[0].toUpperCase());
+
+//   const initialsStr = initials.join("");
+
+//   return initialsStr;
+// }
 export function getInitials(fullName) {
-  const names = fullName.split(" ");
+  if (!fullName) {
+    return ''; // Return an empty string if the fullName is empty, null, or undefined
+  }
 
-  const initials = names.slice(0, 2).map((name) => name[0].toUpperCase());
+  const names = fullName.split(" ").filter((name) => name.trim() !== ''); // Remove empty strings
+  
+  const initials = names.slice(0, 2).map((name) => {
+    if (name && typeof name === 'string' && name[0]) {
+      return name[0].toUpperCase(); // Safely access the first letter and convert to uppercase
+    }
+    return ''; // Return empty string if name is invalid
+  });
 
-  const initialsStr = initials.join("");
+  const initialsStr = initials.join(""); // Combine the initials into a string
 
   return initialsStr;
 }
+
 
 export const PRIOTITYSTYELS = {
   high: "text-red-600",
