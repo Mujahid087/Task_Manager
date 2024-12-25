@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ModalWrapper from "./ModalWrapper";
 import { Dialog } from "@headlessui/react";
 import Textbox from "./Textbox";
@@ -9,12 +9,13 @@ import Button from "./Button";
 import { useRegisterMutation } from "../redux/slices/api/authApiSlice";
 import { toast } from "react-toastify";
 import { useUpdateUserMutation } from "../redux/slices/api/userApiSlice";
+import { setCredentials } from "../redux/slices/authSlice";
 
 const AddUser = ({ open, setOpen, userData }) => {
   let defaultValues = userData ?? {};
   const { user } = useSelector((state) => state.auth);
 
-  const isUpdating = false;
+  const isUpdatingflag = false;
 
   const {
     register,
@@ -22,6 +23,7 @@ const AddUser = ({ open, setOpen, userData }) => {
     formState: { errors },
   } = useForm({ defaultValues });
 
+  const dispatch=useDispatch()
   const [addNewUser ,{isLoading}]=useRegisterMutation()
   const [updateUser,{isLoading:isUpdating}]=useUpdateUserMutation()
 
@@ -34,7 +36,7 @@ const AddUser = ({ open, setOpen, userData }) => {
         toast.success(result?.message)
 
         if(userData?._id===user_id){
-          dispatch
+          dispatch(setCredentials({...result.user}))
         }
 
       }else{

@@ -11,14 +11,28 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 credentials: "include"
             })
         }),
-        updateUser: builder.mutation({
+        getTeamList: builder.query({
             query: (data) => ({
-                url: `${USER_URL}/profile`,
-                method: "PUT",
-                body: data,
+                url: `${USER_URL}/get-team`,
+                method: "GET",
                 credentials: "include"
             })
-        })
+        }),
+        deleteUser: builder.mutation({
+            query: (id) => ({
+                url: `${USER_URL}/${id}`,
+                method: "DELETE",
+                credentials: "include"
+            })
+        }),
+        userAction: builder.mutation({
+            query: (data) => ({
+                url: `${USER_URL}/${data.id}`,
+                method: "PUT",
+                credentials: "include"
+            })
+        }),
+
     })
 })
-export const {useUpdateUserMutation}=userApiSlice
+export const {useUpdateUserMutation,useGetTeamListQuery,useDeleteUserMutation,useUserActionMutation}=userApiSlice
