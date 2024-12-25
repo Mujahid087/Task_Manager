@@ -175,7 +175,7 @@ export const updateUserProfile = async (req, res) => {
             user.role = req.body.role || user.role;
 
 
-            const updatedUser = await User.Save()
+            const updatedUser = await user.save()
 
             user.password = undefined
 
