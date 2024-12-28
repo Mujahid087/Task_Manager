@@ -10,7 +10,7 @@ import AddUser from "../components/AddUser";
 import PropTypes from "prop-types";
 import { useDeleteUserMutation, useGetTeamListQuery, useUserActionMutation } from "../redux/slices/api/userApiSlice";
 import { toast , ToastContainer } from "react-toastify";
-// import refetch from 'react'
+
 
 const Users = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -37,8 +37,7 @@ const Users = () => {
         setOpenAction(false)
       },500)
     }catch(error){
-      // console.log(error)
-      // toast.error(error?.data?.message || error.error)
+      
       console.log(error);
       const errorMessage = error?.data?.message || error?.error || "Something went wrong";
       toast.error(errorMessage);
