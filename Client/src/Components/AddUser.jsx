@@ -7,7 +7,7 @@ import Textbox from "./Textbox";
 import Loading from "./Loader";
 import Button from "./Button";
 import { useRegisterMutation } from "../redux/slices/api/authApiSlice";
-import { toast } from "react-toastify";
+import { toast,ToastContainer } from "react-toastify";
 import { useUpdateUserMutation } from "../redux/slices/api/userApiSlice";
 import { setCredentials } from "../redux/slices/authSlice";
 
@@ -33,7 +33,7 @@ const AddUser = ({ open, setOpen, userData }) => {
       if(userData){
         const result=await updateUser(data).unwrap()
 
-        toast.success(result?.message)
+        toast.success("Profile updated successfully")
 
         if(userData?._id===user_id){
           dispatch(setCredentials({...result.user}))
@@ -55,6 +55,7 @@ const AddUser = ({ open, setOpen, userData }) => {
 
   return (
     <>
+    <ToastContainer/>
       <ModalWrapper open={open} setOpen={setOpen}>
         <form onSubmit={handleSubmit(handleOnSubmit)} className=''>
           <Dialog.Title

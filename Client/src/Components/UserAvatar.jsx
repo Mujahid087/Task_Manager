@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import {  useLogoutMutation } from "../redux/slices/api/authApiSlice";
 import { logout } from "../redux/slices/authSlice";
 import AddUser from "./AddUser";
+import ChangePassword from "./changePassword";
 
 const UserAvatar = () => {
   const [open, setOpen] = useState(false);
