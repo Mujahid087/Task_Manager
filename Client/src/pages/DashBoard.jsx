@@ -158,8 +158,39 @@ const Dashboard = () => {
       <Loading/>
     </div>
   )
-  const totals = data?.tasks;
+  const totals = data?.tasks || {};
 
+  // const stats = [
+  //   {
+  //     _id: "1",
+  //     label: "TOTAL TASK",
+  //     total: data?.totalTasks || 0,
+  //     icon: <FaNewspaper />,
+  //     bg: "bg-[#1d4ed8]",
+  //   },
+  //   {
+  //     _id: "2",
+  //     label: "COMPLETED TASK",
+  //     total: totals["completed"] || 0,
+  //     icon: <MdAdminPanelSettings />,
+  //     bg: "bg-[#0f766e]",
+  //   },
+  //   {
+  //     _id: "3",
+  //     label: "TASK IN PROGRESS ",
+  //     total: totals["in progress"] || 0,
+  //   //   icon: <LuClipboardEdit />,
+  //       icon:<PencilLine/>,
+  //     bg: "bg-[#f59e0b]",
+  //   },
+  //   {
+  //     _id: "4",
+  //     label: "TODOS",
+  //     total: totals["todo"],
+  //     icon: <FaArrowsToDot />,
+  //     bg: "bg-[#be185d]" || 0,
+  //   },
+  // ];
   const stats = [
     {
       _id: "1",
@@ -170,27 +201,27 @@ const Dashboard = () => {
     },
     {
       _id: "2",
-      label: "COMPLTED TASK",
-      total: totals["completed"] || 0,
+      label: "COMPLETED TASK",
+      total: totals["completed"] || 0, // Updated with fallback
       icon: <MdAdminPanelSettings />,
       bg: "bg-[#0f766e]",
     },
     {
       _id: "3",
       label: "TASK IN PROGRESS ",
-      total: totals["in progress"] || 0,
-    //   icon: <LuClipboardEdit />,
-        icon:<PencilLine/>,
+      total: totals["in progress"] || 0, // Updated with fallback
+      icon: <PencilLine />,
       bg: "bg-[#f59e0b]",
     },
     {
       _id: "4",
       label: "TODOS",
-      total: totals["todo"],
+      total: totals["todo"] || 0, // Updated with fallback
       icon: <FaArrowsToDot />,
-      bg: "bg-[#be185d]" || 0,
+      bg: "bg-[#be185d]",
     },
   ];
+  
 
   const Card = ({ label, count, bg, icon }) => {
     return (
