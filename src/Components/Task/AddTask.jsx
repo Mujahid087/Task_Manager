@@ -37,171 +37,171 @@ const AddTask = ({ open, setOpen,task }) => {
   const [updateTask,{isLoading:isUpdating}]=useUpdateTaskMutation()
   const URLS=task?.assets?[...task.assets]:[];
 
-  // const submitHandler = async (data) => { 
-  //   for(const file of assets){
-  //     setUploading(true)
-  //     try{
-  //       await uploadFile(file)
-  //     }catch(error){
-  //       console.error("Error uploading file:",error.message);
-  //       return;
-  //     }finally{
-  //       setUploading(false)
-  //     }
-  //   }
-
-  //   try{
-  //     const newData={
-  //       ...data,
-  //       assets:[...URLS,...uploadedFileURLs],
-  //       team,
-  //       stage,
-  //       priority,
-  //     }
-  //     const res=task?._id
-  //     ?await updateTask({...newData,_id:task._id}).unwrap()
-  //     :await createTask(newData).unwrap()
-
-  //     toast.success(res.message)
-
-  //     setTimeout(()=>{
-  //       setOpen(false);
-  //     },500)
-  //   }catch(error){
-  //     console.log(error)
-  //     toast.error(error?.data?.message || error.error)
-  //   }
-  // };
-
-  // const handleSelect = (e) => {
-  //   setAssets(e.target.files);
-  // };
-
-
-  // const uploadFile = async (file) => {
-  //   const storage = getStorage(app);
-  //   const name = new Date().getTime() + file.name;
-  //   const storageRef = ref(storage, name);
-  //   const uploadTask = uploadBytesResumable(storageRef, file);
-
-  //   return new Promise((resolve, reject) => {
-  //     uploadTask.on(
-  //       "state_changed",
-  //       (snapshot) => {
-  //         console.log("uploading");
-  //       },
-  //       (error) => {
-  //         reject(error)
-  //       },
-  //       () => {
-  //         getDownloadURL(uploadTask.snapshot.ref)
-  //           .then((downloadURL) => {
-  //             uploadedFileURLs.push(downloadURL)
-  //             resolve();
-
-  //           }
-  //           )
-  //           .catch((error)=>{
-  //             reject(error)
-  //           })
-  //       })
-  //   })
-  // }
-  const submitHandler = async (data) => {
-    // Initialize a state to track uploaded URLs
-    const uploadedFileURLs = [];
-    
-    // Only attempt upload if there are assets
-    if (assets?.length) {
-      setUploading(true);
-      
-      try {
-        // Upload all files concurrently
-        await Promise.all(
-          Array.from(assets).map(file => uploadFile(file))
-        );
-      } catch (error) {
-        console.error("Error uploading files:", error.message);
-        toast.error("Failed to upload files");
-        setUploading(false);
+  const submitHandler = async (data) => { 
+    for(const file of assets){
+      setUploading(true)
+      try{
+        await uploadFile(file)
+      }catch(error){
+        console.error("Error uploading file:",error.message);
         return;
+      }finally{
+        setUploading(false)
       }
     }
-    
-    try {
-      const newData = {
+
+    try{
+      const newData={
         ...data,
-        assets: [...(URLS || []), ...uploadedFileURLs], // Handle case where URLS might be undefined
+        assets:[...URLS,...uploadedFileURLs],
         team,
         stage,
         priority,
-      };
-      
-      const res = task?._id
-        ? await updateTask({ ...newData, _id: task._id }).unwrap()
-        : await createTask(newData).unwrap();
-      
-      toast.success(res.message);
-      
-      // Use proper cleanup
-      setTimeout(() => {
+      }
+      const res=task?._id
+      ?await updateTask({...newData,_id:task._id}).unwrap()
+      :await createTask(newData).unwrap()
+
+      toast.success(res.message)
+
+      setTimeout(()=>{
         setOpen(false);
-        setUploading(false); // Ensure uploading state is reset
-        setAssets([]); // Clear assets after successful upload
-      }, 500);
-      
-    } catch (error) {
-      console.error("Error creating/updating task:", error);
-      toast.error(error?.data?.message || error.error || "Failed to process task");
+      },500)
+    }catch(error){
+      console.log(error)
+      toast.error(error?.data?.message || error.error)
     }
   };
-  
+
   const handleSelect = (e) => {
-    // Add file validation if needed
-    const files = Array.from(e.target.files);
-    const validFiles = files.filter(file => {
-      const maxSize = 5 * 1024 * 1024; // 5MB limit example
-      if (file.size > maxSize) {
-        toast.error(`File ${file.name} is too large. Max size is 5MB`);
-        return false;
-      }
-      return true;
-    });
-    
-    setAssets(validFiles);
+    setAssets(e.target.files);
   };
-  
+
+
   const uploadFile = async (file) => {
     const storage = getStorage(app);
-    const fileName = `${new Date().getTime()}-${file.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
-    const storageRef = ref(storage, fileName);
+    const name = new Date().getTime() + file.name;
+    const storageRef = ref(storage, name);
     const uploadTask = uploadBytesResumable(storageRef, file);
-    
+
     return new Promise((resolve, reject) => {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          // Calculate and update progress if needed
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(`Upload progress: ${progress}%`);
+          console.log("uploading");
         },
         (error) => {
-          console.error(`Error uploading ${file.name}:`, error);
-          reject(error);
+          reject(error)
         },
-        async () => {
-          try {
-            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-            uploadedFileURLs.push(downloadURL);
-            resolve(downloadURL);
-          } catch (error) {
-            console.error(`Error getting download URL for ${file.name}:`, error);
-            reject(error);
-          }
-        }
-      );
-    });
-  };
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref)
+            .then((downloadURL) => {
+              uploadedFileURLs.push(downloadURL)
+              resolve();
+
+            }
+            )
+            .catch((error)=>{
+              reject(error)
+            })
+        })
+    })
+  }
+  // const submitHandler = async (data) => {
+  //   // Initialize a state to track uploaded URLs
+  //   const uploadedFileURLs = [];
+    
+  //   // Only attempt upload if there are assets
+  //   if (assets?.length) {
+  //     setUploading(true);
+      
+  //     try {
+  //       // Upload all files concurrently
+  //       await Promise.all(
+  //         Array.from(assets).map(file => uploadFile(file))
+  //       );
+  //     } catch (error) {
+  //       console.error("Error uploading files:", error.message);
+  //       toast.error("Failed to upload files");
+  //       setUploading(false);
+  //       return;
+  //     }
+  //   }
+    
+  //   try {
+  //     const newData = {
+  //       ...data,
+  //       assets: [...(URLS || []), ...uploadedFileURLs], // Handle case where URLS might be undefined
+  //       team,
+  //       stage,
+  //       priority,
+  //     };
+      
+  //     const res = task?._id
+  //       ? await updateTask({ ...newData, _id: task._id }).unwrap()
+  //       : await createTask(newData).unwrap();
+      
+  //     toast.success(res.message);
+      
+  //     // Use proper cleanup
+  //     setTimeout(() => {
+  //       setOpen(false);
+  //       setUploading(false); // Ensure uploading state is reset
+  //       setAssets([]); // Clear assets after successful upload
+  //     }, 500);
+      
+  //   } catch (error) {
+  //     console.error("Error creating/updating task:", error);
+  //     toast.error(error?.data?.message || error.error || "Failed to process task");
+  //   }
+  // };
+  
+  // const handleSelect = (e) => {
+  //   // Add file validation if needed
+  //   const files = Array.from(e.target.files);
+  //   const validFiles = files.filter(file => {
+  //     const maxSize = 5 * 1024 * 1024; // 5MB limit example
+  //     if (file.size > maxSize) {
+  //       toast.error(`File ${file.name} is too large. Max size is 5MB`);
+  //       return false;
+  //     }
+  //     return true;
+  //   });
+    
+  //   setAssets(validFiles);
+  // };
+  
+  // const uploadFile = async (file) => {
+  //   const storage = getStorage(app);
+  //   const fileName = `${new Date().getTime()}-${file.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
+  //   const storageRef = ref(storage, fileName);
+  //   const uploadTask = uploadBytesResumable(storageRef, file);
+    
+  //   return new Promise((resolve, reject) => {
+  //     uploadTask.on(
+  //       "state_changed",
+  //       (snapshot) => {
+  //         // Calculate and update progress if needed
+  //         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+  //         console.log(`Upload progress: ${progress}%`);
+  //       },
+  //       (error) => {
+  //         console.error(`Error uploading ${file.name}:`, error);
+  //         reject(error);
+  //       },
+  //       async () => {
+  //         try {
+  //           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+  //           uploadedFileURLs.push(downloadURL);
+  //           resolve(downloadURL);
+  //         } catch (error) {
+  //           console.error(`Error getting download URL for ${file.name}:`, error);
+  //           reject(error);
+  //         }
+  //       }
+  //     );
+  //   });
+  // };
   return (
     <>
       <ModalWrapper open={open} setOpen={setOpen}>

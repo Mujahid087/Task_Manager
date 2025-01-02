@@ -48,7 +48,7 @@ const firebaseConfig = {
   authDomain: "taskmanager-9c25b.firebaseapp.com",
   projectId: "taskmanager-9c25b",
   // storageBucket: "taskmanager-9c25b.appspot.com", // This is for Firebase Storage, remove if not needed
-  storageBucket: 'taskmanager-9c25b.appspot.com',
+  storageBucket:'taskmanager-9c25b.firebasestorage.app',
   messagingSenderId: "83722758551",
   appId: "1:83722758551:web:1118f829398536ec727cd2",
   measurementId: "G-SYN7KDR034"
